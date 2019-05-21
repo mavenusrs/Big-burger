@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Big Burger</string>
+    <string name="title_activity_add_item">AddItemActivity</string>
+    <string name="turkeyLira">TL</string>
+    <string name="burger_list_title">Burger List</string>
+
+</resources>
