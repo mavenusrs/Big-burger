@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable name="burgerViewModel"
+                  type="com.mavenuser.bigburger.presentation.burgerList.BurgerListViewModel"/>
+    </data>
+<LinearLayout
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-              android:orientation="vertical"
-             tools:context=".presentation.burgerList.BurgerListFragment">
+              android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
             android:id="@+id/bl_toolbar"
@@ -14,6 +19,7 @@
             android:minHeight="?attr/actionBarSize"
             android:theme="?attr/actionBarTheme"/>
 
+
     <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/bl_swipeRefreshLayout"
             android:layout_width="match_parent"
@@ -22,7 +28,19 @@
         <android.support.v7.widget.RecyclerView
                 android:id="@+id/bl_recyclerView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                app:adapter="@{burgerViewModel}"/>
+
+
     </android.support.v4.widget.SwipeRefreshLayout>
 
+    <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="@{burgerViewModel.loadingObservable}"/>
+
 </LinearLayout>
+
+</layout>

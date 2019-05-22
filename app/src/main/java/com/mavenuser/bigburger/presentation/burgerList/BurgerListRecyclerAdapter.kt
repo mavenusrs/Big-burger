@@ -1,5 +1,6 @@
 package com.mavenuser.bigburger.presentation.burgerList
 
+import android.databinding.ObservableList
 import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -12,8 +13,8 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.burger_item.view.*
 import java.lang.Exception
 
-class BurgerListRecyclerAdapter<D> : RecyclerView.Adapter<BurgerViewHolder>() {
-    var burgerList  = mutableListOf<D>()
+class BurgerListRecyclerAdapter(burgerList: ObservableList<BurgerSerializable>):
+    BaseListAdapter<BurgerSerializable, BurgerViewHolder>(burgerList) {
 
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): BurgerViewHolder {
@@ -21,18 +22,12 @@ class BurgerListRecyclerAdapter<D> : RecyclerView.Adapter<BurgerViewHolder>() {
         return BurgerViewHolder(view)
     }
 
-    override fun getItemCount(): Int {
-        return burgerList.size
-    }
 
     override fun onBindViewHolder(holder: BurgerViewHolder, position: Int) {
-        holder.bindItemToVIew(burgerList[position] as BurgerSerializable)
+
+        holder.bindItemToVIew(getItem(position))
     }
 
-    fun updateDataList( updatedBurgerList :List<BurgerSerializable>){
-        burgerList = updatedBurgerList.toMutableList() as MutableList<D>
-        notifyDataSetChanged()
-    }
 
 }
 

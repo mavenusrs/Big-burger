@@ -1,15 +1,19 @@
 package com.mavenuser.bigburger.presentation.burgerList
 
-import android.annotation.SuppressLint
-import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
+import android.databinding.ObservableArrayList
+import android.databinding.ObservableBoolean
+import android.util.Log
 import com.mavenuser.bigburger.di.SCHEDULAR_MAIN_THREAD
 import com.mavenuser.bigburger.di.SCHEDULAR_IO
-import com.mavenuser.bigburger.presentation.burgerList.BurgerListState.DefaultState
+import com.mavenuser.bigburger.domain.usecases.BurgerListState
+import com.mavenuser.bigburger.domain.usecases.BurgerListState.DefaultState
 import com.mavenuser.bigburger.domain.usecases.BurgerListUseCase
 import com.mavenuser.bigburger.mapper.BurgerToBurgerSerializableMapper
 import com.mavenuser.bigburger.model.BurgerSerializable
 import io.reactivex.Scheduler
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
 import javax.inject.Inject
 import javax.inject.Named
 
@@ -18,50 +22,55 @@ class BurgerListViewModel @Inject constructor(private val burgerListUseCase: Bur
                                               @Named(SCHEDULAR_IO) val subscribeOnScheduler: Scheduler,
                                               @Named(SCHEDULAR_MAIN_THREAD) val observeOnScheduler: Scheduler): ViewModel() {
 
-    val stateLiveData = MutableLiveData<BurgerListState>()
+    val loadingObservable = ObservableBoolean()
+    val burgerListObservableList = ObservableArrayList<BurgerSerializable>()
 
-    init {
-        stateLiveData.value = DefaultState(emptyList())
+    private val compositeDisposable = CompositeDisposable()
+
+
+
+    private fun handleResponseStates(burgerListState: BurgerListState) {
+        Log.e("handleResponseStates", "fun")
+
+        loadingObservable.set(burgerListState == BurgerListState.LoadingState)
+
+        when (burgerListState){
+            is DefaultState -> {
+                Log.e("DefaultState", "addall")
+
+                burgerListObservableList.addAll(
+                    burgerToBurgerSerializableMapper.map(burgerListState.data))
+
+            }
+
+            is BurgerListState.ErrorState -> {
+                Log.e("ErrorState", "error")
+            }
+        }
     }
 
 
-    @SuppressLint("CheckResult")
-    private fun getBurgerList(){
+    fun bind(){
         burgerListUseCase.getWholeBurgerList()
             .subscribeOn(subscribeOnScheduler)
             .observeOn(observeOnScheduler)
-            .map { listOfBurger ->
-                burgerToBurgerSerializableMapper.map(listOfBurger) }
-            .subscribe({burgerList ->
-                onBurgerListRetrieved( burgerList)
-                    },
-                {
-                        throwable: Throwable ->  onError(throwable)
-                })
+                .subscribe {
+                    Log.d(BurgerListState::class.java.name, "handleResponseStates")
+                    handleResponseStates(it) }
+            .addTo(compositeDisposable)
     }
 
-    private fun onBurgerListRetrieved(burgerList: List<BurgerSerializable>){
-        stateLiveData.value = DefaultState(burgerList)
+    fun unBound(){
+        Log.e(BurgerListViewModel::class.java.name, "unBound")
+
+        compositeDisposable.clear()
     }
 
-    private fun onError(throwable: Throwable){
-        stateLiveData.value = BurgerListState.ErrorState(throwable)
-    }
 
-    fun resetBurgerList(){
-        stateLiveData.value = BurgerListState.LoadingState
-        loadList()
-    }
+}
 
-    fun loadList(){
-        getBurgerList()
-    }
-
-    fun restoreList(){
-
-        (stateLiveData.value as DefaultState).data = obtainCurrentData()
-    }
-
-    private fun obtainCurrentData() = (stateLiveData.value as DefaultState )?.data ?: emptyList()
+@JvmName("addToComposite")
+private fun Disposable.addTo(compositeDisposable: CompositeDisposable) {
+    compositeDisposable.add(this)
 }
 

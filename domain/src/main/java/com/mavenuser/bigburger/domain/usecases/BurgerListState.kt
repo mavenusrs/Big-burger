@@ -1,6 +1,6 @@
-package com.mavenuser.bigburger.presentation.burgerList
+package com.mavenuser.bigburger.domain.usecases
 
-import com.mavenuser.bigburger.model.BurgerSerializable
+import com.mavenuser.bigburger.domain.model.Burger
 
 /**
  *  burger list state, may be on future adding paging
@@ -8,7 +8,7 @@ import com.mavenuser.bigburger.model.BurgerSerializable
  */
 sealed class BurgerListState {
 
-    data class DefaultState(var data: List<BurgerSerializable>): BurgerListState()
+    data class DefaultState(var data: List<Burger>): BurgerListState()
 
     data class ErrorState(val throwable: Throwable): BurgerListState()
 

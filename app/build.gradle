@@ -9,6 +9,7 @@ apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 28
+    
     defaultConfig {
         applicationId "com.mavenuser.bigburger"
         minSdkVersion 19
@@ -17,6 +18,16 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
+    dataBinding {
+        enabled = true
+    }
+
+    kapt {
+        generateStubs = true
+    }
+
+
     buildTypes {
         release {
             minifyEnabled false
