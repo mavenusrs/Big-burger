@@ -6,8 +6,10 @@ import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.DividerItemDecoration
+import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,8 +17,12 @@ import android.widget.Toast
 
 import com.mavenuser.bigburger.R
 import com.mavenuser.bigburger.domain.usecases.BurgerListState
+import com.mavenuser.bigburger.router.ActivityRouter
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.rxkotlin.addTo
 import kotlinx.android.synthetic.main.fragment_burger_list.*
 import kotlinx.android.synthetic.main.fragment_burger_list.view.*
+import java.io.IOException
 import javax.inject.Inject
 
 /**
@@ -28,12 +34,11 @@ val BURGER_LIST_FRAGMENT_TAG = BurgerListFragment::class.java.name
 
 class BurgerListFragment : Fragment() {
 
-
+    val compositeDisposable = CompositeDisposable()
 
     @Inject lateinit var burgerListViewModel: BurgerListViewModel
 
-
-
+    @Inject lateinit var activityRouter: ActivityRouter
 
     override fun onCreateView(inflater: LayoutInflater
                               , container: ViewGroup?
@@ -57,6 +62,25 @@ class BurgerListFragment : Fragment() {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        //TODO unhandled front-end message, till gother all errors code and return suitable message
+        burgerListViewModel.errorPublishSubject.subscribe {
+
+            Log.d(BURGER_LIST_FRAGMENT_TAG, it.throwable.message!!)
+
+            when(it.throwable){
+                is IOException ->
+                    Toast.makeText(context, getString(R.string.connectionError), Toast.LENGTH_LONG).show()
+                else -> {
+                    Toast.makeText(context, it.throwable.message!!, Toast.LENGTH_LONG).show()
+                }
+
+            }
+
+        }.addTo(compositeDisposable)
+    }
     private fun initSwipeToRefresh(view: View) {
 
         view.bl_swipeRefreshLayout.setOnRefreshListener { burgerListViewModel.bind() }
@@ -80,6 +104,8 @@ class BurgerListFragment : Fragment() {
         super.onDestroy()
 
         burgerListViewModel.unBound()
+
+        compositeDisposable.clear()
     }
 
     companion object {
@@ -87,22 +113,21 @@ class BurgerListFragment : Fragment() {
         @JvmStatic
         @BindingAdapter("adapter")
         fun bindList(recyclerView: RecyclerView, burgerListViewModel: BurgerListViewModel){
-            val linearLayoutManager = LinearLayoutManager(recyclerView.context)
+            val gridLayoutManager = GridLayoutManager(recyclerView.context, 3)
             recyclerView.apply {
-                addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
-                layoutManager = linearLayoutManager
-
+                layoutManager = gridLayoutManager
 
                 val burgerListRecyclerAdapter = BurgerListRecyclerAdapter(burgerListViewModel.burgerListObservableList)
+
+                burgerListRecyclerAdapter.onClickListener = {burgerListViewModel.onItemClick(it)}
+
                 adapter = burgerListRecyclerAdapter
+
 
 
             }
 
         }
-
-
-
 
         /**
          * Use this factory method to create a new instance of

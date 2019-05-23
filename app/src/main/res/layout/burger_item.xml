@@ -1,26 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:background="@color/colorBread"
-              android:orientation="horizontal">
+              android:orientation="vertical">
 
     <ImageView
             android:id="@+id/ivThumbnail"
-            android:layout_width="0dp"
-            android:layout_weight="1"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:adjustViewBounds="true"
-            android:src="@drawable/bph"/>
+            android:src="@drawable/bph"
+            android:contentDescription="@string/thumbnail_desc"/>
 
     <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="5dp"
-            android:layout_weight="2"
             android:layout_gravity="center_vertical"
 
             android:orientation="vertical">
@@ -33,48 +31,35 @@
                 android:textColor="@color/colorTitle"
                 tools:text="title"/>
 
-        <TextView
-                android:id="@+id/tvDescription"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="@android:style/TextAppearance.DeviceDefault.SearchResult.Subtitle"
-                android:textColor="@color/colorSubtitle"
-                android:minEms="5"
-                android:maxLines="2"
-                tools:text="Description"/>
+
     </LinearLayout>
 
-    <LinearLayout
-
-            android:layout_width="0dp"
+    <TextView
+            android:id="@+id/tvPrice"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="5dp"
-            android:layout_weight="1"
-            android:layout_gravity="center_vertical"
-            android:orientation="vertical">
-        <TextView
-                android:id="@+id/tvPrice"
+            android:textColor="@color/colorPrice"
+            android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"
+            tools:text="TL"/>
+
+    <TextView
+            android:id="@+id/tvDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="@android:style/TextAppearance.DeviceDefault.SearchResult.Subtitle"
+            android:textColor="@color/colorSubtitle"
+            android:minEms="5"
+            tools:text="Description"/>
+
+        <Button
+                android:id="@+id/ivAddToCart"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorPrice"
-                android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"
-                tools:text="TL"/>
-
-        <ImageView
-                android:id="@+id/addToCart"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
-                android:src="@drawable/cart"/>
-
-    </LinearLayout>
-
-    <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:src="@drawable/baseline_keyboard_arrow_right_black_36"/>
-
+                android:layout_margin="@dimen/fab_margin"
+                android:text="@string/add_to_cart"
+                android:textColor="@android:color/white"
+                android:background="@color/colorAccent"/>
 
 
 </LinearLayout>

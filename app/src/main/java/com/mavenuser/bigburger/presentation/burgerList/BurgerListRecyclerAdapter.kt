@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.mavenuser.bigburger.R
+import com.mavenuser.bigburger.ext.bindPrice
 import com.mavenuser.bigburger.model.BurgerSerializable
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
@@ -14,12 +15,14 @@ import kotlinx.android.synthetic.main.burger_item.view.*
 import java.lang.Exception
 
 class BurgerListRecyclerAdapter(burgerList: ObservableList<BurgerSerializable>):
-    BaseListAdapter<BurgerSerializable, BurgerViewHolder>(burgerList) {
+    BaseListAdapter<BurgerSerializable, BurgerListRecyclerAdapter.BurgerViewHolder>(burgerList) {
 
+
+    lateinit var onClickListener : (burgerSerializable: BurgerSerializable) -> Unit
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): BurgerViewHolder {
-        val view = LayoutInflater.from(p0.context).inflate(R.layout.burger_item, p0, false)
-        return BurgerViewHolder(view)
+        val view = LayoutInflater.from(p0.context).inflate(R.layout.burger_grid_item, p0, false)
+        return BurgerViewHolder(view, onClickListener)
     }
 
 
@@ -29,30 +32,31 @@ class BurgerListRecyclerAdapter(burgerList: ObservableList<BurgerSerializable>):
     }
 
 
-}
 
-class BurgerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+
+class BurgerViewHolder(itemView: View, private val onClickListener: (BurgerSerializable) -> Unit) : RecyclerView.ViewHolder(itemView) {
 
     val resources by lazy {
         itemView.context.resources
     }
 
-    fun bindItemToVIew(item: BurgerSerializable){
+    fun bindItemToVIew(item: BurgerSerializable) {
 
         itemView.apply {
-            tvPrice.text = bindPrice(item.price)
-            tvDescription.text = item.description
+            tvPrice.text = bindPrice(item.price, resources)
             tvTitle.text = item.title
 
-            if(!TextUtils.isEmpty(item.thumbnail))
-                Picasso.get().load(item.thumbnail).into(ivThumbnail, calb {
-                    Picasso.get().load(R.drawable.bph).into(ivThumbnail) })
+            if (!TextUtils.isEmpty(item.thumbnail))
+                Picasso.get().load(item.thumbnail).into(ivThumbnail, calbackOnError {
+                    Picasso.get().load(R.drawable.bph).into(ivThumbnail)
+                })
 
+            setOnClickListener { onClickListener.invoke(item) }
         }
 
-}
+    }
 
-    fun calb(f: () -> Unit):Callback = object: Callback{
+    private fun calbackOnError(f: () -> Unit): Callback = object : Callback {
         override fun onError(e: Exception?) {
             f()
         }
@@ -62,7 +66,6 @@ class BurgerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         }
     }
 
-    private fun bindPrice(price: Double): CharSequence? {
-        return "$price ${resources.getString(R.string.turkeyLira)}"
-    }
+
+}
 }

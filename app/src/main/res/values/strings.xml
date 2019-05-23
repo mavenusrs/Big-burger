@@ -1,7 +1,13 @@
 <resources>
     <string name="app_name">Big Burger</string>
     <string name="title_activity_add_item">AddItemActivity</string>
-    <string name="turkeyLira">TL</string>
+    <string name="turkeyLira">₺</string>
     <string name="burger_list_title">Burger List</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="add_to_cart">Add to cart</string>
+    <string name="connectionError">Connection error, please try again later</string>
+    <string name="thumbnail_desc">Thumbnail</string>
 
 </resources>

@@ -4,7 +4,7 @@ import android.databinding.ObservableList
 import android.support.v7.widget.RecyclerView
 
 abstract class BaseListAdapter<D, Holder: RecyclerView.ViewHolder>
-    (private val items: ObservableList<D>) : RecyclerView.Adapter<BurgerViewHolder>() {
+    (private val items: ObservableList<D>) : RecyclerView.Adapter<Holder>() {
 
     lateinit var onItemClickList: (item: Any) -> Unit
 
