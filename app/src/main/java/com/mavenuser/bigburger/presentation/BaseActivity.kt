@@ -1,6 +1,6 @@
 package com.mavenuser.bigburger.presentation
 
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import com.mavenuser.bigburger.BurgerApplication
 import com.mavenuser.bigburger.di.AppComponent
 import com.mavenuser.bigburger.di.ScreenModule

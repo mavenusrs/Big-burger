@@ -1,17 +1,17 @@
 package com.mavenuser.bigburger.presentation.order
 
 import android.os.Bundle
-import android.support.design.widget.Snackbar
-import android.support.v7.app.AppCompatActivity;
+import com.google.android.material.snackbar.Snackbar
+import androidx.appcompat.app.AppCompatActivity;
 import com.mavenuser.bigburger.R
 
-import kotlinx.android.synthetic.main.activity_add_item.*
+import kotlinx.android.synthetic.main.activity_order.*
 
-class AddItemActivity : AppCompatActivity() {
+class OrderActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_add_item)
+        setContentView(R.layout.activity_order)
         setSupportActionBar(toolbar)
 
         fab.setOnClickListener { view ->

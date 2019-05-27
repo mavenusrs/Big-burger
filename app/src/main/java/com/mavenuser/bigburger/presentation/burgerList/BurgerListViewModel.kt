@@ -1,8 +1,8 @@
 package com.mavenuser.bigburger.presentation.burgerList
 
-import android.arch.lifecycle.ViewModel
-import android.databinding.ObservableArrayList
-import android.databinding.ObservableBoolean
+import androidx.lifecycle.ViewModel
+import androidx.databinding.ObservableArrayList
+import androidx.databinding.ObservableBoolean
 import android.os.Bundle
 import android.util.Log
 import com.mavenuser.bigburger.di.SCHEDULAR_MAIN_THREAD
@@ -13,8 +13,7 @@ import com.mavenuser.bigburger.domain.usecases.BurgerListUseCase
 import com.mavenuser.bigburger.mapper.BurgerToBurgerSerializableMapper
 import com.mavenuser.bigburger.model.BurgerSerializable
 import com.mavenuser.bigburger.presentation.burgerDetails.BURGER_ITEM_EXTRA
-import com.mavenuser.bigburger.presentation.burgerDetails.OPEN_TO_PAY
-import com.mavenuser.bigburger.router.ActivityRouter
+import com.mavenuser.bigburger.router.Router
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
@@ -23,7 +22,7 @@ import javax.inject.Inject
 import javax.inject.Named
 
 class BurgerListViewModel @Inject constructor(private val burgerListUseCase: BurgerListUseCase,
-                                              private val activityRouter: ActivityRouter,
+                                              private val router: Router,
                                               private val burgerToBurgerSerializableMapper: BurgerToBurgerSerializableMapper,
                                               @Named(SCHEDULAR_IO) val subscribeOnScheduler: Scheduler,
                                               @Named(SCHEDULAR_MAIN_THREAD) val observeOnScheduler: Scheduler): ViewModel() {
@@ -58,7 +57,7 @@ class BurgerListViewModel @Inject constructor(private val burgerListUseCase: Bur
 
 
     fun bind(){
-        burgerListUseCase.getWholeBurgerList()
+        burgerListUseCase.execute()
             .subscribeOn(subscribeOnScheduler)
             .observeOn(observeOnScheduler)
                 .subscribe {
@@ -68,25 +67,17 @@ class BurgerListViewModel @Inject constructor(private val burgerListUseCase: Bur
     }
 
     fun unBound(){
-        Log.e(BurgerListViewModel::class.java.name, "unBound")
+        Log.d(BurgerListViewModel::class.java.name, "unBound")
 
         compositeDisposable.clear()
     }
 
     fun onItemClick(burgerSerializable: BurgerSerializable) {
-        activityRouter.navigate(ActivityRouter.ROUTE.ITEM_DETAILS, Bundle().apply {
+        router.navigate(Router.ROUTE.ITEM_DETAILS, Bundle().apply {
            this.putSerializable(BURGER_ITEM_EXTRA, burgerSerializable)
-            this.putBoolean(OPEN_TO_PAY, false)
         })
     }
 
-
-    fun onAddToCartClick(burgerSerializable: BurgerSerializable) {
-        activityRouter.navigate(ActivityRouter.ROUTE.ITEM_DETAILS, Bundle().apply {
-            this.putSerializable(BURGER_ITEM_EXTRA, burgerSerializable)
-            this.putBoolean(OPEN_TO_PAY, false)
-        })
-    }
 
 }
 

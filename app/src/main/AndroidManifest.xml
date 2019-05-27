@@ -15,6 +15,13 @@
             android:theme="@style/AppTheme"
             tools:ignore="GoogleAppIndexingWarning">
         <activity
+                android:name=".presentation.order.OrderActivity"
+                android:label="@string/title_activity_order"
+                android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity android:name=".presentation.burgerDetails.BurgerDetailsActivity">
+        </activity>
+        <activity
                 android:name=".presentation.order.AddItemActivity"
                 android:label="@string/title_activity_add_item">
         </activity>

@@ -1,5 +1,6 @@
 package com.mavenuser.bigburger.di
 
+import com.mavenuser.bigburger.presentation.burgerDetails.BurgerDetailsActivity
 import com.mavenuser.bigburger.presentation.burgerList.BurgerListFragment
 import com.mavenuser.bigburger.presentation.burgerList.MainActivity
 import dagger.Subcomponent
@@ -11,6 +12,9 @@ interface ScreenComponent {
     fun inject(mainActivity: MainActivity)
 
     fun inject(burgerListFragment: BurgerListFragment)
+
+    fun inject(burgerDetailsActivity: BurgerDetailsActivity)
+
 
 
 }

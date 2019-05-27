@@ -1,6 +1,6 @@
 package com.mavenuser.bigburger.data.api
 
-import com.mavenuser.bigburger.data.entity.BurgerResponse
+import com.mavenuser.bigburger.data.local.entity.BurgerResponse
 import io.reactivex.Single
 import retrofit2.http.GET
 

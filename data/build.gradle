@@ -1,6 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 28
@@ -12,7 +13,7 @@ android {
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
     }
 
@@ -36,12 +37,12 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     //support
-    implementation "com.android.support:appcompat-v7:${rootProject.ext.support_version}"
+    implementation 'androidx.appcompat:appcompat:1.0.0'
 
     //Testing
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    androidTestImplementation 'androidx.test:runner:1.1.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
 
 
 
@@ -60,6 +61,13 @@ dependencies {
     annotationProcessor  "com.google.dagger:dagger-android-processor:${rootProject.ext.dagger2Version}"
     implementation "com.google.dagger:dagger-android-support:${rootProject.ext.dagger2Version}"
     annotationProcessor  "com.google.dagger:dagger-android-support:${rootProject.ext.dagger2Version}"
+
+    // room
+    implementation "androidx.room:room-runtime:${rootProject.ext.roomVersion}"
+    implementation "androidx.room:room-ktx:${rootProject.ext.roomVersion}"
+    kapt "androidx.room:room-compiler:${rootProject.ext.roomVersion}"
+    androidTestImplementation "androidx.room:room-testing:${rootProject.ext.roomVersion}"
+    implementation "androidx.room:room-rxjava2:${rootProject.ext.roomVersion}"
 }
 repositories {
     mavenCentral()

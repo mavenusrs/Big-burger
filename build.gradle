@@ -12,6 +12,7 @@ buildscript {
         dagger2Version = '2.15'
         javax_annotation_version ='1.0'
         picassoVersion = '2.71828'
+        roomVersion = '2.1.0-beta01'
     }
 
     repositories {

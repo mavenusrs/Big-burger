@@ -1,8 +1,7 @@
 package com.mavenuser.bigburger.di
 
 import com.mavenuser.bigburger.presentation.BaseActivity
-import com.mavenuser.bigburger.router.ActivityRouter
-import com.mavenuser.bigburger.router.FragmentRouter
+import com.mavenuser.bigburger.router.Router
 import dagger.Module
 import dagger.Provides
 import java.lang.ref.WeakReference
@@ -18,14 +17,8 @@ class ScreenModule(private val activity: BaseActivity) {
 
     @Provides
     @PerScreen
-    fun provideActivityRouter(): ActivityRouter{
-        return ActivityRouter(WeakReference(activity))
-    }
-
-    @Provides
-    @PerScreen
-    fun provideFragmentRouter(): FragmentRouter{
-        return FragmentRouter(WeakReference(activity))
+    fun provideActivityRouter(): Router{
+        return Router(WeakReference(activity))
     }
 
 

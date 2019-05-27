@@ -1,5 +1,6 @@
 package com.mavenuser.bigburger.di
 
+import android.content.Context
 import dagger.Module
 import dagger.Provides
 import io.reactivex.Scheduler
@@ -12,7 +13,7 @@ const val SCHEDULAR_IO = "io"
 
 
 @Module
-class ApplicationModule {
+class ApplicationModule(val context: Context) {
 
     @Provides
     @Named(SCHEDULAR_MAIN_THREAD)
@@ -21,5 +22,8 @@ class ApplicationModule {
     @Provides
     @Named(SCHEDULAR_IO)
     fun provideIOThreadSchedular(): Scheduler = Schedulers.io()
+
+    @Provides
+    fun provideAppContext(): Context = context
 
 }

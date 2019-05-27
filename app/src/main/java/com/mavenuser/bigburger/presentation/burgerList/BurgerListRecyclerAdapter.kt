@@ -1,8 +1,9 @@
 package com.mavenuser.bigburger.presentation.burgerList
 
-import android.databinding.ObservableList
-import android.support.v7.widget.RecyclerView
+import androidx.databinding.ObservableList
+import androidx.recyclerview.widget.RecyclerView
 import android.text.TextUtils
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,14 +37,11 @@ class BurgerListRecyclerAdapter(burgerList: ObservableList<BurgerSerializable>):
 
 class BurgerViewHolder(itemView: View, private val onClickListener: (BurgerSerializable) -> Unit) : RecyclerView.ViewHolder(itemView) {
 
-    val resources by lazy {
-        itemView.context.resources
-    }
 
     fun bindItemToVIew(item: BurgerSerializable) {
 
         itemView.apply {
-            tvPrice.text = bindPrice(item.price, resources)
+            tvPrice.text = bindPrice(item.price)
             tvTitle.text = item.title
 
             if (!TextUtils.isEmpty(item.thumbnail))
@@ -62,7 +60,8 @@ class BurgerViewHolder(itemView: View, private val onClickListener: (BurgerSeria
         }
 
         override fun onSuccess() {
-            // do nothing
+            // do nothing bacause the image is loaded
+            Log.d("Picasso", "The image is loaded")
         }
     }
 

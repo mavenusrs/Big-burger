@@ -5,7 +5,8 @@ import dagger.Component
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [ApplicationModule::class, ApiModule::class, RepositoryModule::class])
+@Component(modules = [ApplicationModule::class, ApiModule::class,
+    RepositoryModule::class, DatabaseModule::class])
 interface AppComponent
 {
     fun inject (application: BurgerApplication)

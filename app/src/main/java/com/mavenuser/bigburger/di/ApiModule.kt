@@ -1,5 +1,7 @@
 package com.mavenuser.bigburger.di
 
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import com.mavenuser.bigburger.data.api.BurgerListApi
 import dagger.Module
 import dagger.Provides
@@ -22,7 +24,8 @@ class ApiModule {
     @Provides
     fun providRetorfit(client : OkHttpClient) = Retrofit.Builder().baseUrl(BASE_URL)
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-        .addConverterFactory(GsonConverterFactory.create())
+        .addConverterFactory(GsonConverterFactory
+            .create(GsonBuilder().excludeFieldsWithoutExposeAnnotation().create()))
         .client(client).build()
 
 

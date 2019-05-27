@@ -1,10 +1,10 @@
 package com.mavenuser.bigburger.presentation.burgerList
 
-import android.databinding.ObservableList
-import android.support.v7.widget.RecyclerView
+import androidx.databinding.ObservableList
+import androidx.recyclerview.widget.RecyclerView
 
-abstract class BaseListAdapter<D, Holder: RecyclerView.ViewHolder>
-    (private val items: ObservableList<D>) : RecyclerView.Adapter<Holder>() {
+abstract class BaseListAdapter<D, Holder: androidx.recyclerview.widget.RecyclerView.ViewHolder>
+    (private val items: ObservableList<D>) : androidx.recyclerview.widget.RecyclerView.Adapter<Holder>() {
 
     lateinit var onItemClickList: (item: Any) -> Unit
 

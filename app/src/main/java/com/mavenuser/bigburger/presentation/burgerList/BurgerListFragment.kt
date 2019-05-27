@@ -1,14 +1,9 @@
 package com.mavenuser.bigburger.presentation.burgerList
 
-import android.arch.lifecycle.Observer
-import android.databinding.BindingAdapter
-import android.databinding.DataBindingUtil
+import androidx.databinding.BindingAdapter
+import androidx.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.widget.DividerItemDecoration
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.fragment.app.Fragment
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -16,11 +11,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 
 import com.mavenuser.bigburger.R
-import com.mavenuser.bigburger.domain.usecases.BurgerListState
-import com.mavenuser.bigburger.router.ActivityRouter
+import com.mavenuser.bigburger.router.Router
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.fragment_burger_list.*
 import kotlinx.android.synthetic.main.fragment_burger_list.view.*
 import java.io.IOException
 import javax.inject.Inject
@@ -32,13 +25,13 @@ import javax.inject.Inject
 
 val BURGER_LIST_FRAGMENT_TAG = BurgerListFragment::class.java.name
 
-class BurgerListFragment : Fragment() {
+class BurgerListFragment : androidx.fragment.app.Fragment() {
 
     val compositeDisposable = CompositeDisposable()
 
     @Inject lateinit var burgerListViewModel: BurgerListViewModel
 
-    @Inject lateinit var activityRouter: ActivityRouter
+    @Inject lateinit var router: Router
 
     override fun onCreateView(inflater: LayoutInflater
                               , container: ViewGroup?
@@ -112,8 +105,8 @@ class BurgerListFragment : Fragment() {
 
         @JvmStatic
         @BindingAdapter("adapter")
-        fun bindList(recyclerView: RecyclerView, burgerListViewModel: BurgerListViewModel){
-            val gridLayoutManager = GridLayoutManager(recyclerView.context, 3)
+        fun bindList(recyclerView: androidx.recyclerview.widget.RecyclerView, burgerListViewModel: BurgerListViewModel){
+            val gridLayoutManager = androidx.recyclerview.widget.GridLayoutManager(recyclerView.context, 3)
             recyclerView.apply {
                 layoutManager = gridLayoutManager
 
@@ -122,8 +115,6 @@ class BurgerListFragment : Fragment() {
                 burgerListRecyclerAdapter.onClickListener = {burgerListViewModel.onItemClick(it)}
 
                 adapter = burgerListRecyclerAdapter
-
-
 
             }
 

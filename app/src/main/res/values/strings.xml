@@ -9,5 +9,14 @@
     <string name="add_to_cart">Add to cart</string>
     <string name="connectionError">Connection error, please try again later</string>
     <string name="thumbnail_desc">Thumbnail</string>
+    <string name="title_activity_burger_details">BurgerDetailsActivity</string>
+    <string name="item_hint">Add Instructions like (add more Onions, add more tomato, Coke diet...</string>
+    <string name="add_item">Add an item</string>
+    <string name="go_to_order">Go to order</string>
+    <string name="continue_shopping">Continue adding items</string>
+    <string name="item_added_message">Items added successfully, you can either go to make you order, or continue adding
+        other items to your order
+    </string>
+    <string name="title_activity_order">OrderActivity</string>
 
 </resources>
