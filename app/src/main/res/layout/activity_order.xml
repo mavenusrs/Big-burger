@@ -1,34 +1,133 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".presentation.order.OrderActivity">
-
-    <com.google.android.material.appbar.AppBarLayout
-            android:layout_height="wrap_content"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable name="orderViewModel"
+                  type="com.mavenuser.bigburger.presentation.order.OrderViewModel"/>
+    </data>
+    <LinearLayout
             android:layout_width="match_parent"
-            android:theme="@style/AppTheme.AppBarOverlay">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
         <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
+                android:id="@+id/bl_toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
+                android:layout_height="wrap_content"
                 android:background="?attr/colorPrimary"
-                app:popupTheme="@style/AppTheme.PopupOverlay"/>
+                android:minHeight="?attr/actionBarSize"
+                app:title="@string/current_order"
+                app:titleTextColor="@android:color/white"
+                android:theme="?attr/actionBarTheme"/>
 
-    </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/content_order"/>
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                android:id="@+id/bl_swipeRefreshLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:setRefreshing="@{orderViewModel.loadingObservableBoolean}">
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_margin="@dimen/fab_margin"
-            app:srcCompat="@android:drawable/ic_dialog_email"/>
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/bl_recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:adapter="@{orderViewModel}"/>
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:visibility="@{orderViewModel.loadingObservableBoolean}"/>
+
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:orientation="vertical">
+
+            <LinearLayout android:id="@+id/lySubtotal"
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:orientation="horizontal">
+                <TextView
+                        android:id="@+id/tvSubtotal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:minEms="2"
+                        android:textAppearance="@android:style/TextAppearance.DeviceDefault.WindowTitle"
+                        android:textColor="@color/colorTitle"
+                        android:text="@string/subtotal"/>
+
+                <TextView
+                        android:id="@+id/tvSubtotalValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:minEms="2"
+                        android:textAppearance="@android:style/TextAppearance.DeviceDefault.WindowTitle"
+                        android:textColor="@color/colorTitle"/>
+            </LinearLayout>
+
+            <LinearLayout android:id="@+id/lyDelivery"
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:orientation="horizontal">
+                <TextView
+                        android:id="@+id/tvDelivery"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:minEms="2"
+                        android:textAppearance="@android:style/TextAppearance.DeviceDefault.WindowTitle"
+                        android:textColor="@color/colorTitle"
+                        android:text="@string/delivery_charge"/>
+
+                <TextView
+                        android:id="@+id/tvDeliveryValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:minEms="2"
+                        android:textAppearance="@android:style/TextAppearance.DeviceDefault.WindowTitle"
+                        android:textColor="@color/colorTitle"/>
+            </LinearLayout>
+
+            <View android:layout_width="match_parent"
+                  android:layout_height="1dp"
+                  android:background="@android:color/black"/>
+
+            <LinearLayout android:id="@+id/lyTotal"
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:orientation="horizontal">
+                <TextView
+                        android:id="@+id/tvTotal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:minEms="2"
+                        android:textAppearance="@android:style/TextAppearance.DeviceDefault.WindowTitle"
+                        android:textColor="@color/colorTitle"
+                        android:text="@string/grand_total"/>
+
+                <TextView
+                        android:id="@+id/tvTotalValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:minEms="2"
+                        android:textAppearance="@android:style/TextAppearance.DeviceDefault.WindowTitle"
+                        android:textColor="@color/colorTitle"/>
+            </LinearLayout>
+
+            <View android:layout_width="match_parent"
+                  android:layout_height="1dp"
+                  android:background="@android:color/black"/>
+
+            <Button android:id="@+id/btnplaceorder"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorAccent"
+                    android:text="@string/place_order"
+                    android:textColor="@android:color/white"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</layout>

@@ -105,8 +105,8 @@ dependencies {
     androidTestImplementation "androidx.room:room-testing:${rootProject.ext.roomVersion}"
 
 
-    //@https://android-arsenal.com/details/1/4701 "click number picker"
-    implementation 'com.github.polok:clicknumberpicker:0.1.2'
+    //@https://android-arsenal.com/details/1/5838#!description
+    implementation 'com.github.travijuu:numberpicker:1.0.7'
 
 
 }

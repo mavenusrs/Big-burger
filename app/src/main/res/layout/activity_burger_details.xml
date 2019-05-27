@@ -20,7 +20,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="?attr/colorPrimary"
-                    android:titleTextColor="@android:color/white"
+                    app:titleTextColor="@android:color/white"
                     app:title="@string/add_item"
                     tools:ignore="MissingConstraints"
             />
@@ -52,7 +52,7 @@
                 <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:weightSum="6"
+                        android:weightSum="5"
                         android:layout_gravity="center_vertical"
                         android:orientation="horizontal">
                     <TextView
@@ -64,17 +64,20 @@
                             android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"
                             android:layout_weight="2"/>
 
-                    <pl.polak.clicknumberpicker.ClickNumberPickerView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="4"
-                            app:picker_corner_radius="10"
-                            app:pickers_background_color="@color/colorPrimaryDark"
-                            app:swipe_enabled="false"
-                            app:value="@{item.count}"
-                            app:decimal_number="0"
-                            app:value_background_color="@color/colorPrimary"
-                            app:value_text_color="@android:color/white"/>
+                    <LinearLayout android:layout_width="match_parent"
+                                  android:layout_height="wrap_content"
+                                  android:layout_weight="3">
+                        <com.travijuu.numberpicker.library.NumberPicker
+                                android:id="@+id/number_picker"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                app:min="1"
+                                app:value="@{item.count}"
+                                app:unit="1"
+                                app:focusable="false"/>
+                    </LinearLayout>
+
+
                 </LinearLayout>
                 <TextView
                         android:id="@+id/tvDescription"
@@ -89,7 +92,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:maxLines="4"
-                        android:text="@{item.instructions}"
+                        android:textColor="@color/colorSubtitle"
+                        android:text="@={item.instructions}"
                         android:hint="@string/item_hint"/>
 
                 <Button

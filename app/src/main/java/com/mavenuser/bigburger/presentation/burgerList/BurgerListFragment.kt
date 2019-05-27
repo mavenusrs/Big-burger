@@ -43,8 +43,6 @@ class BurgerListFragment : androidx.fragment.app.Fragment() {
 
         val view = fragmentListBinging.root
 
-        initToolbar(view)
-
         initSwipeToRefresh(view)
 
         fragmentListBinging.burgerViewModel = burgerListViewModel
@@ -77,11 +75,6 @@ class BurgerListFragment : androidx.fragment.app.Fragment() {
     private fun initSwipeToRefresh(view: View) {
 
         view.bl_swipeRefreshLayout.setOnRefreshListener { burgerListViewModel.bind() }
-    }
-
-
-    private fun initToolbar(view: View) {
-        view.bl_toolbar.title = getString(R.string.burger_list_title)
     }
 
 

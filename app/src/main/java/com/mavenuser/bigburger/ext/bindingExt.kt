@@ -5,11 +5,11 @@ import android.util.Log
 import androidx.databinding.BindingConversion
 import android.view.View
 import android.widget.ImageView
+import android.widget.NumberPicker
 import androidx.databinding.BindingAdapter
 import com.mavenuser.bigburger.R
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
-import pl.polak.clicknumberpicker.ClickNumberPickerView
 import java.lang.Exception
 
 
@@ -25,8 +25,8 @@ fun bindPrice(price: Double): CharSequence? {
 }
 
 @BindingAdapter("app:value")
-fun bingClickNumberPickerView(view: ClickNumberPickerView, value: Float){
-    view.setPickerValue(value)
+fun bingClickNumberPickerView(view: NumberPicker, value: Int){
+    view.value =value
 }
 
 @BindingAdapter("android:src")

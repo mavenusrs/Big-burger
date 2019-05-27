@@ -17,7 +17,9 @@
             android:layout_height="wrap_content"
             android:background="?attr/colorPrimary"
             android:minHeight="?attr/actionBarSize"
-            android:theme="?attr/actionBarTheme"/>
+            android:theme="?attr/actionBarTheme"
+            app:title="@string/burger_list_title"
+            app:titleTextColor="@android:color/white"/>
 
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout

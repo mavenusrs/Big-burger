@@ -18,7 +18,9 @@ import java.io.IOException
 import javax.inject.Inject
 import androidx.appcompat.app.AlertDialog
 import com.mavenuser.bigburger.R
+import com.mavenuser.bigburger.presentation.order.ORER_EXTRA
 import com.mavenuser.bigburger.router.Router
+import com.travijuu.numberpicker.library.Interface.ValueChangedListener
 
 
 const val BURGER_ITEM_EXTRA = "param1"
@@ -61,7 +63,7 @@ class BurgerDetailsActivity : BaseActivity() {
         detail_toolbar.menu.clear()
         supportActionBar?.apply {
             setDisplayHomeAsUpEnabled(true)
-            setHomeAsUpIndicator(com.mavenuser.bigburger.R.drawable.baseline_close_white_24)
+            setHomeAsUpIndicator(R.drawable.baseline_close_white_24)
         }
 
 
@@ -92,7 +94,9 @@ class BurgerDetailsActivity : BaseActivity() {
                 .setPositiveButton(getString(R.string.go_to_order)){dialog, which ->
                     dialog.dismiss()
                     finish()
-                    router.navigate(Router.ROUTE.ORDER, Bundle())
+                    router.navigate(Router.ROUTE.ORDER, Bundle().apply {
+                        putSerializable(ORER_EXTRA, itemDetailViewModel.orderSerializableObservableField.get())
+                    })
 
                 }
                 .setNegativeButton(getString(R.string.continue_shopping)){dialog, which ->

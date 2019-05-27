@@ -42,6 +42,7 @@ class BurgerListViewModel @Inject constructor(private val burgerListUseCase: Bur
             is DefaultState -> {
                 Log.e("handleResponseStates", "DefaultState")
 
+                burgerListObservableList.clear()
                 burgerListObservableList.addAll(
                     burgerToBurgerSerializableMapper.map(burgerListState.data))
 

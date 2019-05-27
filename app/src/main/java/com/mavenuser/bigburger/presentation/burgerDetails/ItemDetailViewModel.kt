@@ -34,6 +34,7 @@ class ItemDetailViewModel @Inject constructor(private val router: Router,
     val itemAddedPublishSubject = PublishSubject.create<Boolean>()
     val orderSerializableObservableField = ObservableField<OrderSerializable>()
 
+
     private val compositeDisposable= CompositeDisposable()
 
 

@@ -18,5 +18,10 @@
         other items to your order
     </string>
     <string name="title_activity_order">OrderActivity</string>
+    <string name="current_order">Order Summary</string>
+    <string name="subtotal">Subtotal</string>
+    <string name="delivery_charge">Delivery Charge</string>
+    <string name="grand_total">Grand total</string>
+    <string name="place_order">Place Order</string>
 
 </resources>
