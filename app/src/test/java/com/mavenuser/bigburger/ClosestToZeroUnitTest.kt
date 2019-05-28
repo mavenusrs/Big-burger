@@ -1,9 +1,7 @@
 package com.mavenuser.bigburger
 
-import org.jetbrains.annotations.TestOnly
 import org.junit.Test
 
-import org.junit.Assert.*
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -43,7 +41,7 @@ class ClosestToZeroUnitTest {
             throw Exception("Empty list")
         if (items.size == 1)
             return items[0]
-        
+
         var minValue = items[0]
 
         for(i in 1..items.size-1){
