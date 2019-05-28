@@ -22,6 +22,6 @@ data class BurgerResponse (
     @Expose val description: String,
     @Expose val thumbnail: String,
     @Expose val price: Double,
-    val count: Int,
+    var count: Int = 1,
     @ColumnInfo(index = true) val order_id: Long,
     var instructions: String?)

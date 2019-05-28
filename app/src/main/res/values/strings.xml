@@ -10,7 +10,7 @@
     <string name="connectionError">Connection error, please try again later</string>
     <string name="thumbnail_desc">Thumbnail</string>
     <string name="title_activity_burger_details">BurgerDetailsActivity</string>
-    <string name="item_hint">Add Instructions like (add more Onions, add more tomato, Coke diet...</string>
+    <string name="item_hint">Add Instructions like (add more Onions, add more tomato, Coke diet&#8230;</string>
     <string name="add_item">Add an item</string>
     <string name="go_to_order">Go to order</string>
     <string name="continue_shopping">Continue adding items</string>
@@ -30,5 +30,11 @@
     <string name="delete_burger_error">Could not remove Item!!</string>
     <string name="count">Item count : %</string>
     <string name="tax">Tax</string>
+    <string name="place_order_message">Placing your order require you to register with your address, so next step is to
+        register, and pay or pay later, as you like, but for the exam matter, we will stop in this step, placing order
+        will only delete current order
+    </string>
+    <string name="place_order_action">place order</string>
+    <string name="cancel">Cancel</string>
 
 </resources>

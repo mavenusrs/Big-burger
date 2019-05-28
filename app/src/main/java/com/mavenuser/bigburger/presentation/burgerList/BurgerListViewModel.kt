@@ -111,6 +111,10 @@ class BurgerListViewModel @Inject constructor(
 
     fun onItemClick(burgerSerializable: BurgerSerializable) {
         router.navigate(Router.ROUTE.ITEM_DETAILS, Bundle().apply {
+            burgerSerializable.apply {
+                 count =  count.takeUnless { it == 0 } ?: 1
+            }
+
             this.putSerializable(BURGER_ITEM_EXTRA, burgerSerializable)
         })
     }

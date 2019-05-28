@@ -4,15 +4,14 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.databinding.BindingAdapter
 import com.mavenuser.bigburger.databinding.ActivityOrderBinding
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.snackbar.Snackbar
 import com.mavenuser.bigburger.R
 import com.mavenuser.bigburger.model.OrderSerializable
 import com.mavenuser.bigburger.presentation.BaseActivity
@@ -32,8 +31,7 @@ class OrderActivity : BaseActivity() {
 
     @Inject lateinit var router: Router
 
-    @Inject
-    lateinit var orderViewModel: OrderViewModel
+    @Inject lateinit var orderViewModel: OrderViewModel
 
     private val compositeDisposable = CompositeDisposable()
 
@@ -51,6 +49,8 @@ class OrderActivity : BaseActivity() {
 
 
         orderViewModel.bind()
+
+        btnplaceorder.setOnClickListener { placeOrder() }
     }
 
     private fun initDatabinding() {
@@ -135,7 +135,7 @@ class OrderActivity : BaseActivity() {
     fun onFailToDeleteOrder(throwable: Throwable){
         when(throwable){
             is IOException ->
-                Toast.makeText(this, getString(com.mavenuser.bigburger.R.string.connectionError), Toast.LENGTH_LONG).show()
+                Toast.makeText(this, getString(R.string.connectionError), Toast.LENGTH_LONG).show()
             else -> {
                 Toast.makeText(this, throwable.message!!, Toast.LENGTH_LONG).show()
             }
@@ -171,5 +171,21 @@ class OrderActivity : BaseActivity() {
             val itemTouchHelper = ItemTouchHelper(swipeTodeleteCallback)
             itemTouchHelper.attachToRecyclerView(recyclerView)
         }
+    }
+
+    fun placeOrder(){
+        AlertDialog.Builder(this)
+            .setTitle(getString(R.string.place_order))
+            .setMessage(getString(R.string.place_order_message))
+            .setPositiveButton(getString(R.string.place_order_action)){ dialog, which ->
+                dialog.dismiss()
+                orderViewModel.deleteCurrentOrder()
+
+
+            }
+            .setNegativeButton(getString(R.string.cancel)){dialog, which ->
+                dialog.dismiss()
+
+            }.show()
     }
 }

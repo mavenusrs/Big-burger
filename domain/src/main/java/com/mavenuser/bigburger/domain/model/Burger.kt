@@ -7,7 +7,7 @@ data class Burger(
     val description: String,
     val thumbnail: String,
     var price: Double,
-    val count: Int,
+    var count: Int = 1,
     val orderId: Long,
     val instructions: String
 )

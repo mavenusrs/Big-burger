@@ -59,6 +59,7 @@ class OrderViewModel @Inject constructor(
             .execute(orderSerializable.id!!)
             .observeOn(observeOnScheduler)
             .subscribeOn(subscribeOnScheduler)
+            .doOnSubscribe { loadingObservableBoolean.set(true) }
             .subscribe { handelGettingBurgerList(it) }
             .addTo(compositeDisposable)
     }

@@ -12,10 +12,10 @@ class GetQuoutationUseCase @Inject constructor() :
      * get The list of burger
      * @return Observable<BurgerListState> obsrvable of state returned
      */
-    override fun execute(burgerList:
+    override fun execute(parameter:
                          List<Burger>): Observable<Quoutation> {
 
-        val subTotal = getSubTotal(burgerList)
+        val subTotal = getSubTotal(parameter)
         val delivary = getDelivary()
         val tax = getTax(subTotal, delivary)
         val total = getTotal(subTotal, delivary, tax)
@@ -36,10 +36,10 @@ private fun getSubTotal(burgerList: List<Burger>): Double {
 
 
 /**
- * Delivary will be 50 for texting only
+ * Delivary will be 50 TL for texting only
  */
 private fun getDelivary(): Double {
-    return 50.0
+    return 5000.0
 }
 
 /**
