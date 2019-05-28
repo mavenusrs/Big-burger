@@ -18,8 +18,7 @@ class BurgerListUseCase @Inject constructor(private val burgerListLoadingReposit
             .toObservable()
             .map { BurgerListState.DefaultState(it) as BurgerListState }
             .onErrorReturn { BurgerListState.ErrorState(it)  }
-//            .startWith( BurgerListState.LoadingState)
-            .doOnSubscribe { BurgerListState.LoadingState }
+            .startWith( BurgerListState.LoadingState)
 
 
     }

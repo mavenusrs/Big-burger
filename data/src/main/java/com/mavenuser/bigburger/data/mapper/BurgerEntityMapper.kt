@@ -25,7 +25,7 @@ class BurgerEntityMapper {
 
     private fun BurgerResponse.mapModel(): Burger {
         return Burger(
-            null, ref, title,
+            id, ref, title,
             description, thumbnail, price,
             count, order_id, instructions?.toString()?:""
         )

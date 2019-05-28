@@ -8,7 +8,7 @@ import io.reactivex.Single
 @Dao
 interface BurgerDAO {
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertBurger(burgerResponse: BurgerResponse): Completable
 
     @Delete

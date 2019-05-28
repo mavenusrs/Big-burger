@@ -3,11 +3,8 @@ package com.mavenuser.bigburger.router
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import com.mavenuser.bigburger.R
 import com.mavenuser.bigburger.presentation.BaseActivity
 import com.mavenuser.bigburger.presentation.burgerDetails.BurgerDetailsActivity
-import com.mavenuser.bigburger.presentation.burgerList.BURGER_LIST_FRAGMENT_TAG
-import com.mavenuser.bigburger.presentation.burgerList.BurgerListFragment
 import com.mavenuser.bigburger.presentation.burgerList.MainActivity
 import com.mavenuser.bigburger.presentation.order.OrderActivity
 import java.lang.ref.WeakReference
@@ -30,7 +27,9 @@ class Router(val activityRef: WeakReference<BaseActivity>) {
     }
 
     private fun showNextScreen(clazz: Class<*>, bundle: Bundle) {
-        activityRef.get()?.startActivity(Intent(activityRef.get(), clazz).putExtras(bundle))
+        val intent = Intent(activityRef.get(), clazz)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+        activityRef.get()?.startActivity(intent.putExtras(bundle))
     }
 
     private fun replaceFragment(where: Int, fragment: Fragment, tag: String, isReplace: Boolean) {

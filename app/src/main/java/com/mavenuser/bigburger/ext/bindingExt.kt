@@ -5,11 +5,16 @@ import android.util.Log
 import androidx.databinding.BindingConversion
 import android.view.View
 import android.widget.ImageView
-import android.widget.NumberPicker
+import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import androidx.databinding.ObservableField
 import com.mavenuser.bigburger.R
+import com.mavenuser.bigburger.domain.usecases.OrderState
+import com.mavenuser.bigburger.model.OrderSerializable
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
+import com.travijuu.numberpicker.library.Interface.ValueChangedListener
+import com.travijuu.numberpicker.library.NumberPicker
 import java.lang.Exception
 
 
@@ -24,9 +29,20 @@ fun bindPrice(price: Double): CharSequence? {
     return "$formatedPrice ₺"
 }
 
-@BindingAdapter("app:value")
-fun bingClickNumberPickerView(view: NumberPicker, value: Int){
-    view.value =value
+
+@BindingAdapter("app:visib")
+fun bingCurrentOrderBanner(view: TextView, value: ObservableField<OrderSerializable>){
+    if (value?.get() == null){
+         view.visibility = View.GONE
+
+    }else view.visibility = View.VISIBLE
+
+}
+
+@BindingAdapter("app:ValueChangedListener")
+fun bindEvent(numberPicker: NumberPicker, valueChangedListener: ValueChangedListener){
+
+    numberPicker.valueChangedListener = valueChangedListener
 }
 
 @BindingAdapter("android:src")

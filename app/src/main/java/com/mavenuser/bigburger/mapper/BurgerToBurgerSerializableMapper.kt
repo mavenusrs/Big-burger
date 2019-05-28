@@ -10,6 +10,10 @@ class BurgerToBurgerSerializableMapper @Inject constructor() {
     }
 
 
+    fun inverseMapList(listOfBurger: List<BurgerSerializable>): List<Burger> {
+        return listOfBurger.map { inverseMap(it) }
+    }
+
     fun inverseMap(burgerSerializable: BurgerSerializable): Burger {
         burgerSerializable.apply {
             return Burger(id, ref, title, description, thumbnail, price, count, orderId , instructions )

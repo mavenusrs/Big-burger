@@ -101,12 +101,16 @@ dependencies {
     // room
     implementation "androidx.room:room-runtime:${rootProject.ext.roomVersion}"
     implementation "androidx.room:room-ktx:${rootProject.ext.roomVersion}"
+    implementation "androidx.room:room-rxjava2:${rootProject.ext.roomVersion}"
+
     kapt "androidx.room:room-compiler:${rootProject.ext.roomVersion}"
     androidTestImplementation "androidx.room:room-testing:${rootProject.ext.roomVersion}"
 
 
     //@https://android-arsenal.com/details/1/5838#!description
     implementation 'com.github.travijuu:numberpicker:1.0.7'
+
+    implementation "com.android.support:support-dynamic-animation:${rootProject.ext.support_version}"
 
 
 }

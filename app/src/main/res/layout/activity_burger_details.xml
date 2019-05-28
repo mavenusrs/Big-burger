@@ -5,7 +5,8 @@
     <data>
         <variable name="item" type="com.mavenuser.bigburger.model.BurgerSerializable"/>
 
-        <variable name="itemDetailViewModel" type="com.mavenuser.bigburger.presentation.burgerDetails.ItemDetailViewModel"/>
+        <variable name="itemDetailViewModel"
+                  type="com.mavenuser.bigburger.presentation.burgerDetails.ItemDetailViewModel"/>
     </data>
     <ScrollView
             android:layout_width="match_parent"
@@ -74,6 +75,7 @@
                                 app:min="1"
                                 app:value="@{item.count}"
                                 app:unit="1"
+                                app:ValueChangedListener="@{itemDetailViewModel::valueChangedListenerMethod}"
                                 app:focusable="false"/>
                     </LinearLayout>
 
@@ -87,15 +89,23 @@
                         android:textColor="@color/colorSubtitle"
                         android:minEms="5"
                         tools:text="@{item.description}"/>
-                <EditText
-                        android:id="@+id/edInstruction"
+
+                <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:maxLines="4"
-                        android:textColor="@color/colorSubtitle"
-                        android:text="@={item.instructions}"
-                        android:hint="@string/item_hint"/>
-
+                        android:layout_gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:focusableInTouchMode="true"
+                        android:focusable="true">
+                    <EditText
+                            android:id="@+id/edInstruction"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:maxLines="4"
+                            android:textColor="@color/colorSubtitle"
+                            android:text="@={item.instructions}"
+                            android:hint="@string/item_hint"/>
+                </LinearLayout>
                 <Button
                         android:id="@+id/ivAddToCart"
                         android:layout_width="match_parent"
@@ -103,7 +113,6 @@
                         android:adjustViewBounds="true"
                         android:layout_margin="@dimen/fab_margin"
                         android:text="@string/add_to_cart"
-                        android:focusable="true"
                         android:onClick="@{() -> itemDetailViewModel.updateOrInsertOrder(item)}"
                         android:textColor="@android:color/white"
                         android:background="@color/colorAccent"/>

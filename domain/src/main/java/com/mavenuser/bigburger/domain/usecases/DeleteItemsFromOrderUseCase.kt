@@ -14,10 +14,6 @@ class DeleteItemsFromOrderUseCase @Inject constructor(
 
     override fun execute(parameter: Array<Burger>): Completable {
         return burgerListLoadingRepository.deleteBurger(parameter)
-            .doOnComplete { CompletableState.CompleteState }
-            .doOnError { CompletableState.ErrorState(it) }
-            .doOnSubscribe { CompletableState.LoadingState }
-            .doOnComplete { CompletableState.HidingState }
     }
 
 

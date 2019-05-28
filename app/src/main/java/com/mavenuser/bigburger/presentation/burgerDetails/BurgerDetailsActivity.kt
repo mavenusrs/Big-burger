@@ -17,10 +17,10 @@ import kotlinx.android.synthetic.main.activity_burger_details.*
 import java.io.IOException
 import javax.inject.Inject
 import androidx.appcompat.app.AlertDialog
+import androidx.room.EmptyResultSetException
 import com.mavenuser.bigburger.R
 import com.mavenuser.bigburger.presentation.order.ORER_EXTRA
 import com.mavenuser.bigburger.router.Router
-import com.travijuu.numberpicker.library.Interface.ValueChangedListener
 
 
 const val BURGER_ITEM_EXTRA = "param1"
@@ -38,18 +38,27 @@ class BurgerDetailsActivity : BaseActivity() {
 
         screenComponent.inject(this)
 
-        val activityBurgerDetailsBinding : ActivityBurgerDetailsBinding
-        = DataBindingUtil.setContentView(this,
-            R.layout.activity_burger_details )
-
-        activityBurgerDetailsBinding.item = intent.getSerializableExtra(BURGER_ITEM_EXTRA) as BurgerSerializable?
-
-        activityBurgerDetailsBinding.itemDetailViewModel = itemDetailViewModel
+        biningAcitvity()
 
         initToolbar()
 
         handleViewModel()
 
+    }
+
+    private fun biningAcitvity() {
+        val activityBurgerDetailsBinding: ActivityBurgerDetailsBinding = DataBindingUtil.setContentView(
+            this,
+            R.layout.activity_burger_details
+        )
+
+        val burgerSerializable = intent.getSerializableExtra(BURGER_ITEM_EXTRA) as BurgerSerializable
+
+        activityBurgerDetailsBinding.item = burgerSerializable
+
+        itemDetailViewModel.burgerSerializableObservableField.set(burgerSerializable)
+
+        activityBurgerDetailsBinding.itemDetailViewModel = itemDetailViewModel
     }
 
     private fun handleViewModel() {
@@ -79,6 +88,8 @@ class BurgerDetailsActivity : BaseActivity() {
             when(it?.throwable){
                 is IOException ->
                     Toast.makeText(this, getString(com.mavenuser.bigburger.R.string.connectionError), Toast.LENGTH_LONG).show()
+                is EmptyResultSetException ->
+                    Log.d(BurgerDetailsActivity::class.java.name, "Normal null order error, first time there is no order")
                 else -> {
                     Toast.makeText(this, it.throwable.message!!, Toast.LENGTH_LONG).show()
                 }
@@ -102,9 +113,11 @@ class BurgerDetailsActivity : BaseActivity() {
                 .setNegativeButton(getString(R.string.continue_shopping)){dialog, which ->
                     dialog.dismiss()
                     finish()
+                    router.navigate(Router.ROUTE.BURGER_LIST, Bundle())
                 }.show()
         }.addTo(compositeDisposable)
     }
+
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when(item?.itemId){
             android.R.id.home -> finish()

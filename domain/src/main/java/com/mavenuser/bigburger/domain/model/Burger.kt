@@ -1,7 +1,7 @@
 package com.mavenuser.bigburger.domain.model
 
 data class Burger(
-    val id: Long?,
+    var id: Long?,
     val ref: String,
     val title: String,
     val description: String,

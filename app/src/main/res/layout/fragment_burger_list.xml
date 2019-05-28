@@ -6,44 +6,61 @@
         <variable name="burgerViewModel"
                   type="com.mavenuser.bigburger.presentation.burgerList.BurgerListViewModel"/>
     </data>
-<LinearLayout
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-              android:orientation="vertical">
 
-    <androidx.appcompat.widget.Toolbar
-            android:id="@+id/bl_toolbar"
+    <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?attr/colorPrimary"
-            android:minHeight="?attr/actionBarSize"
-            android:theme="?attr/actionBarTheme"
-            app:title="@string/burger_list_title"
-            app:titleTextColor="@android:color/white"/>
-
-
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/bl_swipeRefreshLayout"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+    <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:setRefreshing="@{burgerViewModel.loadingObservable}">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/bl_recyclerView"
+        <androidx.appcompat.widget.Toolbar
+                android:id="@+id/bl_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:adapter="@{burgerViewModel}"/>
+                android:background="?attr/colorPrimary"
+                android:minHeight="?attr/actionBarSize"
+                android:theme="?attr/actionBarTheme"
+                app:title="@string/burger_list_title"
+                app:titleTextColor="@android:color/white"/>
 
 
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                android:id="@+id/bl_swipeRefreshLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:setRefreshing="@{burgerViewModel.loadingObservable}">
 
-    <ProgressBar
-            android:id="@+id/progressBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:visibility="@{burgerViewModel.loadingObservable}"/>
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/bl_recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:adapter="@{burgerViewModel}"/>
 
-</LinearLayout>
 
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:visibility="@{burgerViewModel.loadingObservable}"/>
+
+
+    </LinearLayout>
+    <TextView android:id="@+id/order_banner"
+              android:layout_width="match_parent"
+              android:layout_height="65dp"
+              android:textColor="@android:color/white"
+              android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+              android:background="@color/colorAccent"
+              android:gravity="center"
+              android:text="@string/complete_order"
+              app:visib="@{burgerViewModel.orderObservable}"
+              android:onClick="@{burgerViewModel::onOrderClick}"
+    android:layout_alignParentBottom="true"/>
+    </RelativeLayout>
 </layout>

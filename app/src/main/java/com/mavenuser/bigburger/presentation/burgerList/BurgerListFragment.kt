@@ -1,5 +1,6 @@
 package com.mavenuser.bigburger.presentation.burgerList
 
+import android.content.Context
 import androidx.databinding.BindingAdapter
 import androidx.databinding.DataBindingUtil
 import android.os.Bundle
@@ -83,6 +84,12 @@ class BurgerListFragment : androidx.fragment.app.Fragment() {
 
         (activity as MainActivity).screenComponent.inject(this)
 
+    }
+
+
+    override fun onStart() {
+        super.onStart()
+        burgerListViewModel.attached()
 
     }
 

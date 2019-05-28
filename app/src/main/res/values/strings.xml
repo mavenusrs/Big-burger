@@ -23,5 +23,12 @@
     <string name="delivery_charge">Delivery Charge</string>
     <string name="grand_total">Grand total</string>
     <string name="place_order">Place Order</string>
+    <string name="complete_order">Click here to complete you Order</string>
+    <string name="delete_order">delete order</string>
+    <string name="delete_order_error">Could not delete Order, try again later</string>
+    <string name="order_deleted">Order deleted successfully</string>
+    <string name="delete_burger_error">Could not remove Item!!</string>
+    <string name="count">Item count : %</string>
+    <string name="tax">Tax</string>
 
 </resources>

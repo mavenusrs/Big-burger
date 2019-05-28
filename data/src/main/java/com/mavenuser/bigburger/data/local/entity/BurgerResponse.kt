@@ -15,7 +15,8 @@ import com.google.gson.annotations.Expose
     onUpdate = ForeignKey.CASCADE)
     ))
 data class BurgerResponse (
-    @PrimaryKey(autoGenerate = true) var id: Long?=null,
+    @PrimaryKey(autoGenerate = true)
+    var id: Long? = null,
     @Expose val ref: String,
     @Expose val title: String,
     @Expose val description: String,
