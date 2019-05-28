@@ -12,12 +12,6 @@ import org.junit.Assert.*
  */
 class ClosestToZeroUnitTest {
 
-    fun main(args: Array<Double>){
-        val expected = args[0]
-        val closedValue = closestToZero(args.sliceArray(1..args.size))
-
-        assert(expected == closedValue)
-    }
 
     @Test
     fun testCase1(){
@@ -45,6 +39,11 @@ class ClosestToZeroUnitTest {
     }
 
     fun closestToZero(items: Array<Double>): Double{
+        if (items.isEmpty())
+            throw Exception("Empty list")
+        if (items.size == 1)
+            return items[0]
+        
         var minValue = items[0]
 
         for(i in 1..items.size-1){
