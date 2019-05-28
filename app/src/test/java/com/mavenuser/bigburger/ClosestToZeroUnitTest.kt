@@ -10,10 +10,13 @@ import org.junit.Assert.*
  *
  * See [testing documentation](http://d.android.com/tools/testing).
  */
-class ExampleUnitTest {
-    @Test
-    fun addition_isCorrect() {
-        assertEquals(4, 2 + 2)
+class ClosestToZeroUnitTest {
+
+    fun main(args: Array<Double>){
+        val expected = args[0]
+        val closedValue = closestToZero(args.sliceArray(1..args.size))
+
+        assert(expected == closedValue)
     }
 
     @Test
