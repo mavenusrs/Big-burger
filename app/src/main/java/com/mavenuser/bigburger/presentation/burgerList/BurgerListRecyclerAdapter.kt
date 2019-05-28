@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.mavenuser.bigburger.R
+import com.mavenuser.bigburger.ext.bindImageSrc
 import com.mavenuser.bigburger.ext.bindPrice
 import com.mavenuser.bigburger.model.BurgerSerializable
 import com.squareup.picasso.Callback
@@ -44,10 +45,7 @@ class BurgerViewHolder(itemView: View, private val onClickListener: (BurgerSeria
             tvPrice.text = bindPrice(item.price)
             tvTitle.text = item.title
 
-            if (!TextUtils.isEmpty(item.thumbnail))
-                Picasso.get().load(item.thumbnail).into(ivThumbnail, calbackOnError {
-                    Picasso.get().load(R.drawable.bph).into(ivThumbnail)
-                })
+            bindImageSrc(ivThumbnail, item.thumbnail)
 
             setOnClickListener { onClickListener.invoke(item) }
         }

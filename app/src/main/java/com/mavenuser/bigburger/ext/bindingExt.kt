@@ -48,7 +48,10 @@ fun bindEvent(numberPicker: NumberPicker, valueChangedListener: ValueChangedList
 @BindingAdapter("android:src")
 fun bindImageSrc(imageView: ImageView, thumbnail: String){
     if (!TextUtils.isEmpty(thumbnail))
-        Picasso.get().load(thumbnail).into(imageView, calbackOnError {
+        Picasso.get()
+            .load(thumbnail)
+            .placeholder(R.drawable.bph)
+            .into(imageView, calbackOnError {
             Picasso.get().load(R.drawable.bph).into(imageView)
         })
 
